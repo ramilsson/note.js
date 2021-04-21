@@ -1,5 +1,6 @@
+import React, { useState, useEffect } from 'react';
 import Folder from './Folder';
-import { useState, useEffect } from 'react';
+import FolderForm from './FolderForm';
 
 function buildTree(folders) {
   const idMapping = folders.reduce((acc, folder, index) => {
@@ -20,8 +21,11 @@ function buildTree(folders) {
 
 export default function Navigation() {
   const [tree, setTree] = useState([]);
+  const [folders, setFolders] = useState([]);
 
-  useEffect(() => {
+  useEffect(() => fetchFolders(), []);
+
+  function fetchFolders() {
     fetch(`${process.env.REACT_APP_API_URL}/folders`)
       .then((response) => {
         if (!response.ok) {
@@ -31,15 +35,34 @@ export default function Navigation() {
       })
       .then((folders) => {
         setTree(buildTree(folders));
+        setFolders(folders);
       })
       .catch(() => alert('Could not fetch folders from the server'));
-  }, []);
+  }
+
+  function createFolder(folder) {
+    fetch(`${process.env.REACT_APP_API_URL}/folders`, {
+      method: 'POST',
+      body: JSON.stringify(folder),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error();
+        }
+        alert('The folder has created successfully');
+        fetchFolders();
+      })
+      .catch(() => alert('Could not create the folder'));
+  }
 
   return (
     <aside className='menu'>
       {tree.map((folder) => (
         <Folder key={folder.id} folder={folder} />
       ))}
+      <div className='mt-5'>
+        <FolderForm onSubmit={createFolder} folders={folders} />
+      </div>
     </aside>
   );
 }
