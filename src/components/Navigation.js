@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Folder from './Folder';
 import FolderForm from './FolderForm';
 import useTree from '../hooks/useTree';
+import AppContext from './AppContext';
 
-export default function Navigation({ folders }) {
-  const tree = useTree(folders);
+export default function Navigation() {
+  const {folders} = useContext(AppContext);
+  const foldersTree = useTree(folders);
 
   function createFolder(folder) {
     fetch(`${process.env.REACT_APP_API_URL}/folders`, {
@@ -22,7 +24,7 @@ export default function Navigation({ folders }) {
 
   return (
     <aside className='menu'>
-      {tree.map((folder) => (
+      {foldersTree.map((folder) => (
         <Folder key={folder.id} folder={folder} />
       ))}
       <div className='mt-5'>
