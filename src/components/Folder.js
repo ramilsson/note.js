@@ -1,22 +1,34 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+
+// Font Awesome Icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFolder, faFolderOpen } from '@fortawesome/free-regular-svg-icons';
+import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 export default function Folder({ folder }) {
-  if (folder.parent === 0) {
-    return (
-      <>
-        <p className='menu-label'>{folder.title}</p>
-        <ul className='menu-list'>
-          {folder.children.map((folder) => (
-            <Folder key={folder.id} folder={folder} />
-          ))}
-        </ul>
-      </>
-    );
+  const [isOpen, setOpen] = useState(true);
+  const hasChildren = folder.children.length > 0;
+  const children = useRef();
+
+  function toggleChildren(e) {
+    if (hasChildren) {
+      e.preventDefault();
+      setOpen(!isOpen);
+    }
   }
+  
   return (
     <li>
-      <a href='#'>{folder.title}</a>
-      <ul>
+      <Link to={`/notes?folder=${folder.id}`}>
+        <span className='icon-text'>
+          <span className='icon has-text-link'>
+            <FontAwesomeIcon onClick={toggleChildren} icon={isOpen && hasChildren ? faFolderOpen : faFolder} />
+          </span>
+          <span>{folder.title}</span>
+        </span>
+      </Link>
+      <ul ref={children} className={isOpen ? '' : 'is-hidden'}>
         {folder.children.map((folder) => (
           <Folder key={folder.id} folder={folder} />
         ))}

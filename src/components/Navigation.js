@@ -5,7 +5,7 @@ import useTree from '../hooks/useTree';
 import AppContext from './AppContext';
 
 export default function Navigation() {
-  const {folders} = useContext(AppContext);
+  const { folders } = useContext(AppContext);
   const foldersTree = useTree(folders);
 
   function createFolder(folder) {
@@ -24,9 +24,12 @@ export default function Navigation() {
 
   return (
     <aside className='menu'>
-      {foldersTree.map((folder) => (
-        <Folder key={folder.id} folder={folder} />
-      ))}
+      <p className='menu-label'>Navigation</p>
+      <ul className='menu-list'>
+        {foldersTree.map((folder) => (
+          <Folder key={folder.id} folder={folder} />
+        ))}
+      </ul>
       <div className='mt-5'>
         <FolderForm onSubmit={createFolder} folders={folders} />
       </div>
