@@ -1,10 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-
-// Font Awesome Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFolder, faFolderOpen } from '@fortawesome/free-regular-svg-icons';
-import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 export default function Folder({ folder }) {
   const [isOpen, setOpen] = useState(true);
