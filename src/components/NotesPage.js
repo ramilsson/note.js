@@ -1,46 +1,55 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import useQuery from '../hooks/useQuery';
+import React, { useContext, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import AppContext from './AppContext';
+import Subfolders from './Subfolders';
+import NotesPageHeader from './NotesPageHeader';
+import NotesGrid from './NotesGrid';
 
 export default function NotesPage() {
-  const query = useQuery();
+  const location = useLocation();
   const { notes, folders } = useContext(AppContext);
-  const folder = folders.find((folder) => folder.id === +query.get('folder'));
-  const filteredNotes = folder ? notes.filter((note) => note.folderId === folder.id) : notes;
+  const [filter, setFilter] = useState(null);
+  const [currentFolder, setCurrentFolder] = useState();
+
+  useEffect(() => {
+    const query = new URLSearchParams(location.search);
+    setFilter({
+      folderId: +query.get('folder'),
+      search: query.get('search'),
+    });
+  }, [location]);
+
+  useEffect(() => {
+    if (!filter) {
+      return;
+    }
+
+    if (filter.folderId) {
+      const folder = folders.find((f) => f.id === filter.folderId);
+      if (folder) {
+        setCurrentFolder(folder);
+      }
+    }
+  }, [filter, folders]);
+
+  function handleSearch(e) {
+    setFilter({
+      ...filter,
+      search: e.target.value,
+    });
+  }
 
   return (
     <>
-      <header className='level'>
-        <div className='level-left'>
-          <h1 className='title'>{folder && folder.title}</h1>
-        </div>
-        <div className='level-right'>
-          <Link to='/notes/create' className='button is-link'>
-            Create note
-          </Link>
-        </div>
-      </header>
-      <div className='box'>
-        {filteredNotes.map((note) => (
-          <Note key={note.id} note={note} />
-        ))}
-      </div>
+      <NotesPageHeader
+        currentFolder={currentFolder}
+        searchValue={filter && filter.search ? filter.search : ''}
+        searchHandler={handleSearch}
+      />
+      <Subfolders folder={currentFolder} />
+      <NotesGrid notes={notes} filter={filter} />
     </>
   );
 }
 
-function Note({ note }) {
-  return (
-    <article className='media'>
-      <div className='media-content'>
-        <div className='content'>
-          <h2 className='is-size-4'>
-            <Link to={`notes/${note.id}`}>{note.title}</Link>
-          </h2>
-          <p>Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.</p>
-        </div>
-      </div>
-    </article>
-  );
-}
+
