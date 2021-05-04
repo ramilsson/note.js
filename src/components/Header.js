@@ -1,9 +1,12 @@
+import { Link } from 'react-router-dom';
+
 export default function Header() {
   return (
     <header className='hero is-small is-dark'>
       <div className='hero-body'>
-        <p className='title'>Note.js</p>
-        <p className='subtitle'>Small subtitle</p>
+        <Link to='/'>
+          <img className='is-block' width='128' src='/logo.svg' alt='Note.js' />
+        </Link>
       </div>
     </header>
   );
