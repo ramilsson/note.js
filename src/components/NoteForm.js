@@ -60,7 +60,7 @@ export default function NoteForm({ formData, onSubmit, folders }) {
       <div className='level'>
         <div className='level-left'>
           <button type='button' onClick={() => history.goBack()} className='button is-white'>
-            <span class='icon'>
+            <span className='icon'>
               <FontAwesomeIcon icon={faChevronLeft}/>
             </span>
             <span>Back</span>
