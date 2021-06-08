@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Note from 'features/notes/Note';
-import 'styles/notes-grid.scss';
+import 'styles/notesGrid.scss';
 
 export default function NotesGrid({ notes, filter }) {
   const [filteredNotes, setFilteredNotes] = useState(notes);
