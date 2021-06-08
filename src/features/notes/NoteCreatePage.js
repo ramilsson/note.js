@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
+import AppContext from 'app/AppContext';
 import { useHistory } from 'react-router-dom';
-import AppContext from './AppContext';
-import NoteForm from './NoteForm';
+import NoteForm from 'features/notes/NoteForm';
 
 export default function NoteCreatePage() {
   const history = useHistory();
@@ -24,8 +24,8 @@ export default function NoteCreatePage() {
 
   return (
     <>
-      <h1 className='title'>Create note</h1>
-      <div className='box'>
+      <h1 className="title">Create note</h1>
+      <div className="box">
         <NoteForm folders={folders} onSubmit={createNote} />
       </div>
     </>

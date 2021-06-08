@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
+import AppContext from 'app/AppContext';
+import NoteForm from 'features/notes/NoteForm';
 import { useHistory, useParams } from 'react-router-dom';
-import AppContext from './AppContext';
-import NoteForm from './NoteForm';
 
 export default function NoteEditPage() {
   const { notes, folders } = useContext(AppContext);
@@ -26,8 +26,8 @@ export default function NoteEditPage() {
 
   return (
     <>
-      <h1 className='title'>Edit note</h1>
-      <div className='box'>
+      <h1 className="title">Edit note</h1>
+      <div className="box">
         <NoteForm formData={note} folders={folders} onSubmit={editNote} />
       </div>
     </>

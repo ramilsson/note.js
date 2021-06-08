@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFolder } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 const defaultFormData = {
@@ -32,46 +32,54 @@ export default function NoteForm({ formData, onSubmit, folders }) {
 
   return (
     <form onSubmit={submitForm}>
-      <div className='field'>
-        <div className='control'>
+      <div className="field">
+        <div className="control">
           <input
-            name='title'
+            name="title"
             onChange={handleChange}
             value={form.title}
-            className='input is-large'
-            type='text'
-            placeholder='Title'
+            className="input is-large"
+            type="text"
+            placeholder="Title"
           />
         </div>
       </div>
-      <div className='field'>
-        <div className='control'>
+      <div className="field">
+        <div className="control">
           <textarea
-            name='body'
+            name="body"
             onChange={handleChange}
             value={form.body}
-            className='textarea'
-            placeholder='...'
-            rows='20'
+            className="textarea"
+            placeholder="..."
+            rows="20"
           ></textarea>
         </div>
       </div>
       <hr />
-      <div className='level'>
-        <div className='level-left'>
-          <button type='button' onClick={() => history.goBack()} className='button is-white'>
-            <span className='icon'>
-              <FontAwesomeIcon icon={faChevronLeft}/>
+      <div className="level">
+        <div className="level-left">
+          <button
+            type="button"
+            onClick={() => history.goBack()}
+            className="button is-white"
+          >
+            <span className="icon">
+              <FontAwesomeIcon icon={faChevronLeft} />
             </span>
             <span>Back</span>
           </button>
         </div>
-        <div className='level-right'>
-          <div className='field is-grouped is-grouped-right'>
-            <div className='control has-icons-left'>
-              <div className='select is-medium'>
-                <select name='folderId' value={form.folderId} onChange={handleChange}>
-                  <option value='0' disabled>
+        <div className="level-right">
+          <div className="field is-grouped is-grouped-right">
+            <div className="control has-icons-left">
+              <div className="select is-medium">
+                <select
+                  name="folderId"
+                  value={form.folderId}
+                  onChange={handleChange}
+                >
+                  <option value="0" disabled>
                     Select folder
                   </option>
                   {folders.map((folder) => (
@@ -80,13 +88,13 @@ export default function NoteForm({ formData, onSubmit, folders }) {
                     </option>
                   ))}
                 </select>
-                <span className='icon is-small is-left'>
+                <span className="icon is-small is-left">
                   <FontAwesomeIcon icon={faFolder} />
                 </span>
               </div>
             </div>
-            <div className='control'>
-              <button className='button is-medium is-link'>Save</button>
+            <div className="control">
+              <button className="button is-medium is-link">Save</button>
             </div>
           </div>
         </div>

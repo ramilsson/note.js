@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AppContext from './AppContext';
+import AppContext from 'app/AppContext';
 
 export default function AppProvider({ children }) {
   const [folders, setFolders] = useState([]);

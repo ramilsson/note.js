@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import Folder from './Folder';
-import FolderForm from './FolderForm';
-import useTree from '../hooks/useTree';
-import AppContext from './AppContext';
+import Folder from 'features/folders/Folder';
+import FolderForm from 'features/folders/FolderForm';
+import useTree from 'hooks/useTree';
+import AppContext from 'app/AppContext';
 
 export default function Navigation() {
   const { folders } = useContext(AppContext);

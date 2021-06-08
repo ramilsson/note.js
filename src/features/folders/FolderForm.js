@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Dropdown from './Dropdown';
+import Dropdown from 'common/components/Dropdown';
 
 const DEFAULT_FORM = {
   id: null,

@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import AppContext from './AppContext';
-import Subfolders from './Subfolders';
-import NotesPageHeader from './NotesPageHeader';
-import NotesGrid from './NotesGrid';
+import NotesGrid from 'features/notes/NotesGrid';
+import Subfolders from 'features/folders/Subfolders';
+import NotesPageHeader from 'features/notes/NotesPageHeader';
+import AppContext from 'app/AppContext';
 
 export default function NotesPage() {
   const location = useLocation();
@@ -51,5 +51,3 @@ export default function NotesPage() {
     </>
   );
 }
-
-
