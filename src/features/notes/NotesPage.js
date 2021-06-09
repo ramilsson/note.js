@@ -1,14 +1,15 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import NotesGrid from 'features/notes/NotesGrid';
 import Subfolders from 'features/folders/Subfolders';
 import NotesPageHeader from 'features/notes/NotesPageHeader';
-import AppContext from 'app/AppContext';
+import { useSelector } from 'react-redux';
 
 export default function NotesPage() {
   const location = useLocation();
-  const { notes, folders } = useContext(AppContext);
   const [filter, setFilter] = useState(null);
+  const notes = useSelector((state) => state.notes);
+  const folders = useSelector((state) => state.folders);
   const [currentFolder, setCurrentFolder] = useState();
 
   useEffect(() => {

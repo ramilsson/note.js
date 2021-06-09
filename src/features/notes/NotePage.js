@@ -1,13 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-import AppContext from 'app/AppContext';
 import { formatDate } from 'common/utilities';
 import NoteBreadcrumb from 'features/notes/NoteBreadcrumb';
 
 export default function NotePage() {
   const { id } = useParams();
-  const { notes, folders } = useContext(AppContext);
+  const notes = useSelector((state) => state.notes);
+  const folders = useSelector((state) => state.folder);
   const note = notes.find((note) => note.id === +id);
   const folder = note && folders.find((folder) => folder.id === note.folderId);
 
