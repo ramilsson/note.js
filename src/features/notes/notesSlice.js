@@ -28,3 +28,7 @@ export async function fetchNotes(dispatch, getState) {
     console.error('Could not fetch notes from the server');
   }
 }
+
+export function selectNoteById(state, noteId) {
+  return state.notes.find((note) => note.id === noteId);
+}

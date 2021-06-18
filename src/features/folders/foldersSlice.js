@@ -28,3 +28,7 @@ export async function fetchFolders(dispatch, getState) {
     console.error('Could not fetch folders from the server');
   }
 }
+
+export function selectFolderById(state, folderId) {
+  return state.folders.find((folder) => folder.id === folderId);
+}
