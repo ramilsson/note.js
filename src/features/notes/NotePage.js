@@ -4,13 +4,15 @@ import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { formatDate } from 'common/utilities';
 import NoteBreadcrumb from 'features/notes/NoteBreadcrumb';
+import { selectNoteById } from './notesSlice';
+import { selectFolderById } from 'features/folders/foldersSlice';
 
 export default function NotePage() {
   const { id } = useParams();
-  const notes = useSelector((state) => state.notes);
-  const folders = useSelector((state) => state.folder);
-  const note = notes.find((note) => note.id === +id);
-  const folder = note && folders.find((folder) => folder.id === note.folderId);
+  const note = useSelector((state) => selectNoteById(state, +id));
+  const folder = useSelector((state) =>
+    selectFolderById(state, note?.folderId)
+  );
 
   if (!note) {
     return null;
@@ -18,7 +20,7 @@ export default function NotePage() {
   return (
     <>
       <header className="is-flex is-justify-content-space-between is-flex-wrap-wrap">
-        <NoteBreadcrumb currentFolder={folder} currentNote={note} />
+        <NoteBreadcrumb folder={folder} note={note} />
         <Link to={`/notes/${note.id}/edit`} className="button is-small">
           Edit
         </Link>
